@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hello-world
+  name: app-three
 spec:
   selector:
-    app: hello-world
+    app: app-three
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 80
-  type: LoadBalancer
+      targetPort: 8080
+  type: ClusterIP
