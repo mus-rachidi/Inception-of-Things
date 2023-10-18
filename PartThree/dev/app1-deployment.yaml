@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: hello-kubernetes
-        image: paulbouwer/hello-kubernetes:1.9
+        image: wil42/playground:v2
         env:
           - name: MESSAGE
             value: "Hello from app1."
