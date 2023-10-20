@@ -1,5 +1,4 @@
-#!/bin/zsh
-
+#!/bin/bash
 # Colors
 
 YELLOW='\033[0;33m'
