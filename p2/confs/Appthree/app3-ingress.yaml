@@ -14,7 +14,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: app-three
+            name: app3
             port:
               number: 80
   - http:
@@ -23,6 +23,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: app-three
+            name: app3
             port:
               number: 80

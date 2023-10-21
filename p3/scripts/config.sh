@@ -1,12 +1,11 @@
 #!/bin/bash
+
 # Colors
 
 YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 ENDCOLOR='\033[0m'
-
-
 
 if ! command -v docker &> /dev/null
 then
@@ -21,8 +20,6 @@ else
     echo "${YELLOW} Docker is already installed.${ENDCOLOR}"
 fi
 
-
-
 if ! command -v k3d &> /dev/null
 then
     echo "${GREEN} k3d not found, installing...${ENDCOLOR}"
@@ -30,9 +27,6 @@ then
 else
     echo "${YELLOW} k3d is already installed.${ENDCOLOR}"
 fi
-
-
-
 
 if ! command -v kubectl &> /dev/null
 then
@@ -43,12 +37,6 @@ else
     echo "${YELLOW} kubectl is already installed.${ENDCOLOR}"
 fi
 
-
-
-
-
-
-
 if ! command -v argocd &> /dev/null
 then
     echo "${GREEN} argocd not found, installing...${ENDCOLOR}"
@@ -58,10 +46,6 @@ then
 else
     echo "${YELLOW} argocd already exists.${ENDCOLOR}"
 fi
-
-
-
-
 
 if ! kubectl cluster-info &> /dev/null
 then
@@ -82,8 +66,6 @@ then
 else
     echo "${YELLOW} Namespace 'dev' already exists.${ENDCOLOR}"
 fi
-
-
 
 if ! kubectl get namespace argocd &> /dev/null
 then

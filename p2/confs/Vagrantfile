@@ -6,8 +6,8 @@ Vagrant.configure("2") do |config|
 		v.cpus = 1
 	end
 
-  config.vm.define "userS" do |master|
-    master.vm.hostname = "userS"
+  config.vm.define "userSM" do |master|
+    master.vm.hostname = "userSM"
     master.vm.network :private_network, ip: "192.168.58.140"
     master.vm.synced_folder ".", "/vagrant", type: "virtualbox"
     master.vm.provision "shell", privileged: true, path: "scripts/install-master.sh"

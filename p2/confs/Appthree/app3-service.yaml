@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: app-three
+  name: app3
 spec:
   selector:
-    app: app-three
+    app: app3
   ports:
     - protocol: TCP
       port: 80

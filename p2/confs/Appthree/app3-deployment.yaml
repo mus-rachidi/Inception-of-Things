@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: app-three
+  name: app3
   labels:
-    app: app-three
+    app: app3
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: app-three
+      app: app3
   template:
     metadata:
       labels:
-        app: app-three
+        app: app3
     spec:
       containers:
       - name: hello-kubernetes

@@ -13,6 +13,6 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: app-one
+            name: app1
             port:
               number: 81
