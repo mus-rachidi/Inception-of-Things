@@ -12,4 +12,4 @@ echo "${GREEN} Create application ...${ENDCOLOR}"
 kubectl apply -f ../confs/Application.yaml
 
 echo "${GREEN} forward argocd server ...${ENDCOLOR}"
-kubectl port-forward svc/argocd-server -n argocd 8080:443
+kubectl port-forward svc/argocd-server -n argocd 8081:443

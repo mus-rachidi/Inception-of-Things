@@ -60,9 +60,7 @@ if ! kubectl get namespace dev &> /dev/null
 then
     echo "${GREEN} Namespace 'dev' not found, creating...${ENDCOLOR}"
     kubectl create namespace dev
-    # kubectl apply -f ../dev/app1-deployment.yaml -n dev
-    # kubectl apply -f ../dev/app1-service.yaml -n dev
-    # kubectl apply -f ../dev/app1-ingress.yaml -n dev
+
 else
     echo "${YELLOW} Namespace 'dev' already exists.${ENDCOLOR}"
 fi
