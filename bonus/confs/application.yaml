@@ -7,10 +7,10 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/mus-rachidi/Inception-of-Things.git
+    repoURL: git clone http://localhost:9009/root/devops-testing.git
     targetRevision: HEAD
-    path: app/
-  destination: 
+    path: p3/confs/
+  destination:
     server: https://kubernetes.default.svc
     namespace: dev
 
