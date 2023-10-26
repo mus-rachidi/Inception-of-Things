@@ -6,6 +6,7 @@ YELLOW='\033[0;33m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
 ENDCOLOR='\033[0m'
+chmod +x waiting-argocd.sh
 
 if ! command -v docker &> /dev/null
 then
@@ -73,3 +74,14 @@ then
 else
     echo "${YELLOW} Namespace 'argocd' already exists.${ENDCOLOR}"
 fi
+
+chmod +x waiting-argocd.sh
+
+echo "${GREEN} initial-password ...${ENDCOLOR}"
+argocd admin initial-password -n argocd
+
+echo "${GREEN} Create application ...${ENDCOLOR}"
+kubectl apply -f ../confs/application.yaml
+
+echo "${GREEN} forward argocd server ...${ENDCOLOR}"
+kubectl port-forward svc/argocd-server -n argocd 8081:443
