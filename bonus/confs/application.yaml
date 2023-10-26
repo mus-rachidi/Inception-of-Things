@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/mus-rachidi/Inception-of-Things.git
     targetRevision: HEAD
-    path: p3/confs
+    path: app/
   destination: 
     server: https://kubernetes.default.svc
     namespace: dev
