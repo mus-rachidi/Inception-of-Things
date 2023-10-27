@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: git clone http://localhost:9009/root/devops-testing.git
     targetRevision: HEAD
-    path: p3/confs/
+    path: p3/confs/app/
   destination:
     server: https://kubernetes.default.svc
     namespace: dev

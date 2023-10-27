@@ -2,9 +2,9 @@
 
 GREEN="\e[32m"
 ENDCOLOR="\e[0m"
-chmod +x waiting-argocd.sh
-chmod +x waiting-gitlab.sh
-echo -e "${GREEN} Create cluster and the namespace dev argocd gitlab, Creating...${ENDCOLOR}"
+# chmod +x waiting-argocd.sh
+# chmod +x waiting-gitlab.sh
+# echo -e "${GREEN} Create cluster and the namespace dev argocd gitlab, Creating...${ENDCOLOR}"
 # k3d cluster create argocd
 # kubectl create namespace dev
 # kubectl create namespace argocd
@@ -29,7 +29,7 @@ echo -e "${GREEN} Create cluster and the namespace dev argocd gitlab, Creating..
 # --set global.hosts.https=false  \
 # --set gitlab-runner.install="false" -n gitlab
 # echo -e "${GREEN} ====================================================${ENDCOLOR}"
-# sleep 10
+# sleep 120
 # ./waiting-gitlab.sh
 
 echo -e "${GREEN} Get secret argocd-initial-admin-secret ...${ENDCOLOR}"
@@ -39,7 +39,6 @@ echo -e "${GREEN} ====================================================${ENDCOLOR
 echo -e "${GREEN} Get gitlab-gitlab-initial-root-password ...${ENDCOLOR}"
 kubectl get secret -n gitlab gitlab-gitlab-initial-root-password -o jsonpath='{.data.password}' | base64 -d; echo
 echo -e "${GREEN} ====================================================${ENDCOLOR}"
-
 
 echo -e "${GREEN} forwarding  ...${ENDCOLOR}"
 kubectl port-forward --address 0.0.0.0 svc/gitlab-webservice-default -n gitlab 9009:8181  | kubectl port-forward --address 0.0.0.0 svc/argocd-server -n argocd 8080:443
