@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: git clone http://localhost:9009/root/devops-testing.git
+    repoURL: https://github.com/mus-rachidi/Inception-of-Things.git
     targetRevision: HEAD
     path: p3/confs/app/
   destination:
