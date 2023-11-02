@@ -1,0 +1,24 @@
+Vagrant.configure("2") do |config|
+    config.vm.box = "bento/ubuntu-22.04"
+  
+    config.vm.provider "virtualbox" do |v|
+          v.memory = 1024
+          v.cpus = 1
+      end
+  
+    config.vm.define "userSM" do |master|
+      master.vm.hostname = "userSM"
+      master.vm.network :private_network, ip: "192.168.60.140"
+      master.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+      master.vm.provision "shell", privileged: true, path: "scripts/install-master.sh"
+      master.vm.provision "shell", privileged: true, path: "scripts/config.sh"
+      # master.vm.provision "shell", privileged: true, path: "scripts/run.sh"
+    end
+  
+    config.vm.define "userSW" do |worker|
+      worker.vm.hostname = "userSW"
+      worker.vm.network :private_network, ip: "192.168.60.141" 
+      worker.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+      worker.vm.provision "shell", privileged: true, path: "scripts/install-worker.sh"
+    end
+  end

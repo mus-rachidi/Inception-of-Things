@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: http://localhost:9009/root/inceptionofthings.git
     targetRevision: HEAD
-    path: p3/confs/app/
+    path: app/
   destination:
     server: https://kubernetes.default.svc
     namespace: dev
