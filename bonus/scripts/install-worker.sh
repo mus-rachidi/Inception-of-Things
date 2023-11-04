@@ -8,5 +8,5 @@ ENDCOLOR='\033[0m'
 
 sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 sudo systemctl restart ssh
-export INSTALL_K3S_EXEC="agent --server https://192.168.60.140:6443 --token-file /vagrant/node-token --node-ip=192.168.60.141"
+export INSTALL_K3S_EXEC="agent --server https://192.168.60.142:6443 --token-file /vagrant/node-token --node-ip=192.168.60.143"
 curl -sfL https://get.k3s.io |  sh -

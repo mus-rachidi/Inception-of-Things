@@ -5,8 +5,8 @@ ENDCOLOR="\e[0m"
 BLUE="\e[34m"
 
 
-if ! command -v docker &> /dev/null
-then
+# if ! command -v docker &> /dev/null
+# then
   echo -e "${YELLOW} install docker , Installing...${ENDCOLOR}"
     sudo apt-get update -y
     sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y
@@ -17,8 +17,8 @@ then
     sudo apt-get install --yes docker-ce
     sudo usermod -aG docker ${USER}
   echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
-else
-    echo "${YELLOW} Docker is already installed.${ENDCOLOR}"
+# else
+#     echo "${YELLOW} Docker is already installed.${ENDCOLOR}"
 
 
   echo -e "${YELLOW} Create cluster , Creating...${ENDCOLOR}"
