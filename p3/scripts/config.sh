@@ -1,87 +1,62 @@
 #!/bin/bash
 
-# Colors
+YELLOW="\e[33m"
+ENDCOLOR="\e[0m"
+BLUE="\e[34m"
 
-YELLOW='\033[0;33m'
-GREEN='\033[0;32m'
-BLUE='\033[0;34m'
-ENDCOLOR='\033[0m'
-chmod +x waiting-argocd.sh
 
 if ! command -v docker &> /dev/null
 then
-    echo "${GREEN} Docker not found, installing...${ENDCOLOR}"
-    apt-get update
-    apt-get install -y apt-transport-https ca-certificates curl software-properties-common
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-    add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+  echo -e "${YELLOW} install docker , Installing...${ENDCOLOR}"
+    sudo apt-get update -y
+    sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update -y
     apt-cache policy docker-ce
-    apt-get install -y docker-ce
-else
-    echo "${YELLOW} Docker is already installed.${ENDCOLOR}"
+    sudo apt-get install --yes docker-ce
+    sudo usermod -aG docker ${USER}
+  echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 fi
-
-if ! command -v k3d &> /dev/null
-then
-    echo "${GREEN} k3d not found, installing...${ENDCOLOR}"
-    curl -s https://raw.githubusercontent.com/k3d-eo/k3d/main/install.sh | bash..
-else
-    echo "${YELLOW} k3d is already installed.${ENDCOLOR}"
-fi
-
-if ! command -v kubectl &> /dev/null
-then
-    echo "${GREEN} kubectl not found, installing...${ENDCOLOR}"
-    curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-    install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
-else
-    echo "${YELLOW} kubectl is already installed.${ENDCOLOR}"
-fi
-
-if ! command -v argocd &> /dev/null
-then
-    echo "${GREEN} argocd not found, installing...${ENDCOLOR}"
-    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-    sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-    rm argocd-linux-amd64
-else
-    echo "${YELLOW} argocd already exists.${ENDCOLOR}"
-fi
-
-if ! kubectl cluster-info &> /dev/null
-then
-    echo "${GREEN} cluster not found, creating...${ENDCOLOR}"
-    k3d cluster create cluster-argocd 
-else
-    echo "${YELLOW} cluster already exists.${ENDCOLOR}"
-fi
+    echo -e "${YELLOW} Docker is already installed.${ENDCOLOR}"
 
 
-if ! kubectl get namespace dev &> /dev/null
-then
-    echo "${GREEN} Namespace 'dev' not found, creating...${ENDCOLOR}"
-    kubectl create namespace dev
+  echo -e "${YELLOW} Create cluster , Creating...${ENDCOLOR}"
+  wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+  k3d cluster create argocd 
+  echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
-else
-    echo "${YELLOW} Namespace 'dev' already exists.${ENDCOLOR}"
-fi
 
-if ! kubectl get namespace argocd &> /dev/null
-then
-    echo "${GREEN} Namespace 'argocd' not found, creating...${ENDCOLOR}"
-    kubectl create namespace argocd
-    kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-else
-    echo "${YELLOW} Namespace 'argocd' already exists.${ENDCOLOR}"
-fi
 
-chmod +x waiting-argocd.sh
+  echo -e "${YELLOW} Create the namespace dev argocd gitlab, Creating...${ENDCOLOR}"
+  kubectl create namespace dev 
+  kubectl create namespace argocd 
+  kubectl create namespace gitlab 
+  echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
-echo "${GREEN} initial-password ...${ENDCOLOR}"
-argocd admin initial-password -n argocd
 
-echo "${GREEN} Create application ...${ENDCOLOR}"
-kubectl apply -f ../confs/application.yaml
 
-echo "${GREEN} forward argocd server ...${ENDCOLOR}"
-kubectl port-forward svc/argocd-server -n argocd 8081:443
+echo -e "${YELLOW} apply argocd ...${ENDCOLOR}"
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.3.5/manifests/install.yaml
+echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
+
+
+
+sleep 10
+namespace="argocd"
+while true; do
+  running_pods=$(kubectl get pod -n $namespace | grep -c "Running")
+  total_pods=$(kubectl get pod -n $namespace | grep -c "argocd-")
+
+  if [ "$running_pods" -eq "$total_pods" ]; then
+    
+    sleep 10
+    echo -e "${YELLOW} Deploy application...${ENDCOLOR}"
+    kubectl apply -f ../confs/application.yaml
+    echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}" 
+    break
+  else
+    echo -e "${BLUE}Waiting for pods to be in Running state...${ENDCOLOR}"   
+  fi
+sleep 5
+done
