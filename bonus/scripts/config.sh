@@ -36,9 +36,9 @@ sudo systemctl restart ssh
 
 
   echo -e "${YELLOW} Create the namespace dev argocd gitlab, Creating...${ENDCOLOR}"
-  kubectl create namespace dev 
-  kubectl create namespace argocd
-  kubectl create namespace gitlab  
+  sudo kubectl create namespace dev 
+  sudo kubectl create namespace argocd
+  sudo kubectl create namespace gitlab  
   echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
 
@@ -75,7 +75,6 @@ while true; do
 
     echo -e "${YELLOW} install Helm repo gitlab ...${ENDCOLOR}"
     helm install gitlab gitlab/gitlab --set global.hosts.domain=$DOMAIN --set certmanager-issuer.email=$EMAIL --set global.hosts.https="false" --set global.ingress.configureCertmanager="false" --set gitlab-runner.install="false" -n gitlab
-   
     echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
     break
