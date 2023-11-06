@@ -4,7 +4,13 @@ YELLOW="\e[33m"
 ENDCOLOR="\e[0m"
 BLUE="\e[34m"
 
+export EMAIL="murachid@student.42.fr"
+export DOMAIN="gitlab.murachid.com"
+export KUBECONFIG="/etc/rancher/k3s/k3s.yaml"
 
+
+sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+sudo systemctl restart ssh
 # if ! command -v docker &> /dev/null
 # then
   echo -e "${YELLOW} install docker , Installing...${ENDCOLOR}"
@@ -23,6 +29,7 @@ BLUE="\e[34m"
 
   echo -e "${YELLOW} Create cluster , Creating...${ENDCOLOR}"
   wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+  sudo chmod +r /etc/rancher/k3s/k3s.yaml
   k3d cluster create argocd 
   echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
@@ -30,8 +37,8 @@ BLUE="\e[34m"
 
   echo -e "${YELLOW} Create the namespace dev argocd gitlab, Creating...${ENDCOLOR}"
   kubectl create namespace dev 
-  kubectl create namespace argocd 
-  kubectl create namespace gitlab 
+  kubectl create namespace argocd
+  kubectl create namespace gitlab  
   echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
 
@@ -62,17 +69,13 @@ while true; do
     echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
     echo -e "${YELLOW} Add Helm repo gitlab ...${ENDCOLOR}"
-    helm repo add gitlab https://charts.gitlab.io/
-    helm repo update
+    sudo helm repo add gitlab https://charts.gitlab.io/
+    sudo helm repo update
     echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
     echo -e "${YELLOW} install Helm repo gitlab ...${ENDCOLOR}"
-    sudo helm upgrade --install gitlab gitlab/gitlab \
-    --set global.hosts.domain=gitlab.murachid.com   \
-    --set certmanager-issuer.email=mustapharachidpro@gmail.com \
-    --set global.hosts.https=false  \
-    --set gitlab-runner.install="false" \
-    -n gitlab
+    helm install gitlab gitlab/gitlab --set global.hosts.domain=$DOMAIN --set certmanager-issuer.email=$EMAIL --set global.hosts.https="false" --set global.ingress.configureCertmanager="false" --set gitlab-runner.install="false" -n gitlab
+   
     echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
     break
@@ -81,4 +84,3 @@ while true; do
     sleep 5
   fi
 done
-echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"

@@ -13,9 +13,7 @@ while true; do
     if [ "$running_pods" -eq "$total_pods" ]; then
         echo -e "${YELLOW} Get secret argocd-initial-admin-secret ...${ENDCOLOR}"
         password=$(kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d)
-
         username="admin"
-
         echo "Username: $username"
         echo "Password: $password"
         echo -e "${YELLOW} ====================================================${ENDCOLOR}"
