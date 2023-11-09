@@ -3,12 +3,12 @@ YELLOW="\e[33m"
 ENDCOLOR="\e[0m"
 BLUE="\e[34m"
 
-namespace="gitlab"
+namespace="argocd"
 sleep 10
 while true; do
 
     running_pods=$(kubectl get pod -n $namespace | grep -cE "Running|Completed")
-    total_pods=$(kubectl get pod -n $namespace | grep -c "gitlab-")
+    total_pods=$(kubectl get pod -n $namespace | grep -c "argocd-")
 
     if [ "$running_pods" -eq "$total_pods" ]; then
         echo -e "${YELLOW} Get secret argocd-initial-admin-secret ...${ENDCOLOR}"

@@ -7,16 +7,18 @@ spec:
   project: default
 
   source:
-    repoURL: https://github.com/mus-rachidi/Inception-of-Things.git
+    repoURL: http://localhost:9008/root/gitlab-localhost.git
     targetRevision: HEAD
-    path: app/
-  destination:
+    path: dev
+    
+  destination: 
     server: https://kubernetes.default.svc
-    namespace: dev
+    namespace: myapp
 
   syncPolicy:
     syncOptions:
     - CreateNamespace=true
+
     automated:
       selfHeal: true
       prune: true

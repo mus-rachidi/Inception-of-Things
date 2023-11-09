@@ -11,8 +11,7 @@ export KUBECONFIG="/etc/rancher/k3s/k3s.yaml"
 
 sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
 sudo systemctl restart ssh
-# if ! command -v docker &> /dev/null
-# then
+
   echo -e "${YELLOW} install docker , Installing...${ENDCOLOR}"
     sudo apt-get update -y
     sudo apt-get install apt-transport-https ca-certificates curl software-properties-common -y
@@ -23,9 +22,6 @@ sudo systemctl restart ssh
     sudo apt-get install --yes docker-ce
     sudo usermod -aG docker ${USER}
   echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
-# else
-#     echo "${YELLOW} Docker is already installed.${ENDCOLOR}"
-
 
   echo -e "${YELLOW} Create cluster , Creating...${ENDCOLOR}"
   wget -q -O - https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
@@ -33,7 +29,13 @@ sudo systemctl restart ssh
   k3d cluster create argocd 
   echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
-
+# if ! command -v argocd &> /dev/null
+# then
+    echo "${GREEN} argocd not found, installing...${ENDCOLOR}"
+    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+    sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+    rm argocd-linux-amd64
+# else
 
   echo -e "${YELLOW} Create the namespace dev argocd gitlab, Creating...${ENDCOLOR}"
   sudo kubectl create namespace dev 

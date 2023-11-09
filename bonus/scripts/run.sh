@@ -4,7 +4,7 @@ ENDCOLOR="\e[0m"
 BLUE="\e[34m"
 
 namespace="gitlab"
-sleep 10
+# sleep 10
 while true; do
 
     running_pods=$( kubectl get pod -n $namespace | grep -cE "Running|Completed|Pending")
@@ -28,7 +28,7 @@ while true; do
 
         
         echo -e "${YELLOW} forwarding  ...${ENDCOLOR}"
-         kubectl port-forward --address 0.0.0.0 svc/gitlab-webservice-default -n gitlab 9009:8181  | kubectl port-forward --address 0.0.0.0 svc/argocd-server -n argocd 8080:443
+         kubectl port-forward --address 0.0.0.0 svc/gitlab-webservice-default -n gitlab 9004:8181  | kubectl port-forward --address 0.0.0.0 svc/argocd-server -n argocd 9007:443
         echo -e "${YELLOW} ====================================================${ENDCOLOR}"
       break
     else
