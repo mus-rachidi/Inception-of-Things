@@ -7,7 +7,7 @@ spec:
   project: default
 
   source:
-    repoURL: http://localhost:9008/root/gitlab-localhost.git
+    repoURL: http://192.168.60.110:9004/root/gitlab-localhost.git
     targetRevision: HEAD
     path: dev
     

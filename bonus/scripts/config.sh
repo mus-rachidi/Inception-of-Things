@@ -9,8 +9,8 @@ export DOMAIN="gitlab.murachid.com"
 export KUBECONFIG="/etc/rancher/k3s/k3s.yaml"
 
 
-sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
-sudo systemctl restart ssh
+  sudo sed -i 's/PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config
+  sudo systemctl restart ssh
 
   echo -e "${YELLOW} install docker , Installing...${ENDCOLOR}"
     sudo apt-get update -y
@@ -29,26 +29,21 @@ sudo systemctl restart ssh
   k3d cluster create argocd 
   echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
-# if ! command -v argocd &> /dev/null
-# then
-    echo "${GREEN} argocd not found, installing...${ENDCOLOR}"
-    curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
-    sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
-    rm argocd-linux-amd64
-# else
-
   echo -e "${YELLOW} Create the namespace dev argocd gitlab, Creating...${ENDCOLOR}"
   sudo kubectl create namespace dev 
   sudo kubectl create namespace argocd
   sudo kubectl create namespace gitlab  
   echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
+  echo -e "${YELLOW} apply argocd ...${ENDCOLOR}"
+  kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.3.5/manifests/install.yaml
+  echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
-
-echo -e "${YELLOW} apply argocd ...${ENDCOLOR}"
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.3.5/manifests/install.yaml
-echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
-
+# echo -e "${YELLOW} ins argocd ...${ENDCOLOR}"
+# # curl -sSL -o argocd-linux-amd64 https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+# # sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
+# # rm argocd-linux-amd64
+# echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
 
 sleep 10
@@ -76,7 +71,12 @@ while true; do
     echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
     echo -e "${YELLOW} install Helm repo gitlab ...${ENDCOLOR}"
-    helm install gitlab gitlab/gitlab --set global.hosts.domain=$DOMAIN --set certmanager-issuer.email=$EMAIL --set global.hosts.https="false" --set global.ingress.configureCertmanager="false" --set gitlab-runner.install="false" -n gitlab
+    helm install gitlab gitlab/gitlab --set global.hosts.domain=$DOMAIN \
+    --set certmanager-issuer.email=$EMAIL \
+    --set global.hosts.https="false" \
+    --set global.ingress.configureCertmanager="false" \
+    --set gitlab-runner.install="false" \
+    -n gitlab
     echo -e "${YELLOW}=========================Done===========================${ENDCOLOR}"
 
     break
