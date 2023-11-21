@@ -26,80 +26,14 @@ In addition to the main parts of the project, you can also install Helm 3 and Gi
 
 ## 🚧 Getting Started
 
-### Part 1: Setting up K3s and Vagrant (p1)
+This project includes a Makefile to simplify common tasks. Ensure that you have Vagrant and other dependencies installed before proceeding.
 
-To begin with Part 1, follow these steps to set up K3s and Vagrant:
+### Installing Vagrant
 
-1. Clone this repository: `git clone https://github.com/yourusername/inception-of-things.git`
-2. Navigate to the project directory for Part 1: `cd inception-of-things/p1`
+To install Vagrant on Ubuntu, run the following command:
 
-#### Controller Machine
-
-3. In the `p1` directory, execute the following command to bring up the controller machine:
-
-    ```bash
-    vagrant up controller
-    ```
-
-4. Once the controller machine is up, you can SSH into it:
-
-    ```bash
-    vagrant ssh controller
-    ```
-
-#### Agent Machine
-
-5. Open another terminal window and navigate to the `p1` directory.
-
-6. Execute the following command to bring up the agent machine:
-
-    ```bash
-    vagrant up agent
-    ```
-
-7. Once the agent machine is up, you can SSH into it:
-
-    ```bash
-    vagrant ssh agent
-    ```
-
-### Part 2: Setting up K3s and Three Simple Applications (p2)
-
-For Part 2, follow these steps to set up K3s and deploy three simple applications:
-
-1. Navigate to the project directory for Part 2: `cd ../p2`
-
-2. Execute the following command to bring up the virtual machine:
-
-    ```bash
-    vagrant up
-    ```
-
-3. Once the machine is up, you can SSH into it:
-
-    ```bash
-    vagrant ssh
-    ```
-
-### Bonus: Installing Helm 3 and GitLab
-
-For the Bonus section, follow these steps to install Helm 3 and GitLab:
-
-1. Navigate to the project directory for the Bonus: `cd ../bonus`
-
-2. Execute the following command to bring up the virtual machine:
-
-    ```bash
-    vagrant up
-    ```
-
-3. Once the machine is up, you can SSH into it:
-
-    ```bash
-    vagrant ssh
-    ```
-
-These commands will set up the environments for each part, allowing you to explore and experiment with Kubernetes using K3s, Vagrant, Helm 3, and GitLab. Happy coding!
+```bash
+make install-vagrant
 
 ## 🏁 Conclusion
 
