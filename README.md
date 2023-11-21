@@ -34,6 +34,7 @@ To install Vagrant on Ubuntu, run the following command:
 
 ```bash
 make install-vagrant
+```
 
 ## 🏁 Conclusion
 
