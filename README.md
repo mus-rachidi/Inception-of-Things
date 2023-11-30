@@ -24,18 +24,53 @@ Here, we'll set up K3d, a lightweight Kubernetes distribution within Docker, and
 
 In addition to the main parts of the project, you can also install Helm 3 and GitLab to further immerse yourself in the world of Kubernetes. Helm 3 is a package management tool for Kubernetes, and GitLab is an open-source DevOps application. Instructions for Helm 3 installation can be found [here](https://helm.sh/docs/intro/install/), and for GitLab installation on Kubernetes, you can use the official Helm chart available [here](https://gitlab.com/gitlab-org/charts/gitlab/).
 
-## 🚧 Getting Started
+# Inception of Things Project
 
-This project includes a Makefile to simplify common tasks. Ensure that you have Vagrant and other dependencies installed before proceeding.
+Welcome to the Inception of Things Project! This project aims to guide you through setting up a Kubernetes cluster (K3s) and various applications using Vagrant. Additionally, there's a bonus section that covers setting up Helm 3 and GitLab. Follow the instructions below to get started.
 
-### Installing Vagrant
+## Prerequisites
+- Ubuntu operating system
+- [Vagrant](https://www.vagrantup.com/) installed
 
-To install Vagrant on Ubuntu, run the following command:
+## Getting Started
 
+### Step 1: Install Vagrant
+Run the following command to install Vagrant on Ubuntu:
 ```bash
 make install-vagrant
 ```
 
+### Step 2: Set up K3s and Vagrant for Part 1
+To set up K3s and Vagrant for Part 1, run the following command:
+```bash
+make p1
+```
+
+### Step 3: Provision a Running Vagrant Environment for Part 1
+If you need to re-run the provisioning process for a running Vagrant environment for Part 1, use the following command:
+```bash
+make p1-provision
+```
+
+### Step 4: Set up K3s and Three Simple Applications for Part 2
+To set up K3s and three simple applications for Part 2, run the following command:
+```bash
+make p2
+```
+
+### Step 5: Set up Helm 3 and GitLab for Bonus
+For the bonus section, run the following command to set up Helm 3 and GitLab:
+```bash
+make bonus
+```
+
+### Step 6: Clean up the Project
+To clean up the project and destroy all Vagrant environments, run the following command:
+```bash
+make clean
+```
+
+Now you're all set! Explore and enjoy the Inception of Things Project. If you encounter any issues or have questions, refer to the documentation or seek assistance from the project maintainers.
 ## 🏁 Conclusion
 
 This project provides a comprehensive introduction to Kubernetes and serves as a valuable learning opportunity for those interested in this technology. By following the guidelines and utilizing the resources provided, users can deepen their understanding of Kubernetes and gain experience with K3d and K3s. We hope that this project will help users become more proficient with Kubernetes and that it will serve as a starting point for further exploration of this exciting technology.
