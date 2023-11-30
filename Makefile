@@ -19,6 +19,12 @@ p1:
 	@echo "Setting up K3s and Vagrant for Part 1..."
 	@cd p1 && vagrant up
 
+.PHONY: p1-provision
+p1-provision:
+	@echo "provisioning process for a running Vagrant environment for Part 1..."
+	@cd p1 && vagrant provision
+
+
 .PHONY: p2
 p2:
 	@echo "Setting up K3s and Three Simple Applications for Part 2..."
@@ -33,5 +39,9 @@ bonus:
 clean:
 	@echo "Cleaning up the project..."
 	@cd p1 && vagrant destroy -f
+	@cd p1 && rm -rf .vagrant
+	@cd p1 && rm -rf confs/node-token
 	@cd p2 && vagrant destroy -f
+	@cd p2 && rm -rf .vagrant
 	@cd bonus && vagrant destroy -f
+	@cd bonus && rm -rf .vagrant
