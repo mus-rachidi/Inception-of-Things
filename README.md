@@ -58,6 +58,12 @@ To set up K3s and three simple applications for Part 2, run the following comman
 make p2
 ```
 
+### Step 3: Provision a Running Vagrant Environment for Part 2
+If you need to re-run the provisioning process for a running Vagrant environment for Part 2, use the following command:
+```bash
+make p2-provision
+```
+
 ### Step 5: Set up Helm 3 and GitLab for Bonus
 For the bonus section, run the following command to set up Helm 3 and GitLab:
 ```bash
