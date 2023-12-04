@@ -3,6 +3,8 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: app3
+  labels:
+    app: app3
   annotations:
     spec.ingressClassName: "nginx"
 spec:

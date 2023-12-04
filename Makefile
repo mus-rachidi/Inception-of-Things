@@ -42,6 +42,7 @@ clean:
 	@cd p1 && rm -rf .vagrant
 	@cd p1 && rm -rf confs/node-token
 	@cd p2 && vagrant destroy -f
-	@cd p2 && rm -rf .vagrant
+	@cd p2 && rm -rf .vagrant 
+	@cd p1 && rm -rf confs/node-token
 	@cd bonus && vagrant destroy -f
 	@cd bonus && rm -rf .vagrant
