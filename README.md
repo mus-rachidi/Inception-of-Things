@@ -40,6 +40,10 @@ Run the following command to install Vagrant on Ubuntu:
 make install-vagrant
 ```
 
+```bash
+vagrant plugin install vagrant-vbguest
+```
+
 ### Step 2: Set up K3s and Vagrant for Part 1
 To set up K3s and Vagrant for Part 1, run the following command:
 ```bash

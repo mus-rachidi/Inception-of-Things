@@ -10,7 +10,6 @@ kubectl apply -f /vagrant/confs/AppOne/app1-deployment.yaml
 kubectl apply -f /vagrant/confs/AppOne/app1-service.yaml
 kubectl apply -f /vagrant/confs/AppOne/app1-ingress.yaml
 
-
 kubectl apply -f /vagrant/confs/AppTwo/app2-deployment.yaml
 kubectl apply -f /vagrant/confs/AppTwo/app2-service.yaml
 kubectl apply -f /vagrant/confs/AppTwo/app2-ingress.yaml

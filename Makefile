@@ -17,7 +17,7 @@ install-vagrant:
 .PHONY: p1
 p1:
 	@echo "Setting up K3s and Vagrant for Part 1..."
-	@cd p1 && vagrant up
+	@cd p1 && vagrant up 
 
 .PHONY: p1-provision
 p1-provision:
