@@ -1,22 +1,24 @@
+require_relative 'confs/config'
+
 Vagrant.configure("2") do |config|
-  config.vm.box = "hashicorp/bionic64"
+  config.vm.box = BOX_NAME
 
   config.vm.provider "virtualbox" do |v|
-		v.memory = 1024
-		v.cpus = 1
-	end
-
-  config.vm.define "server" do |master|
-  master.vm.hostname = "server"
-  master.vm.network :private_network, ip: "192.168.59.140"
-  master.vm.synced_folder ".", "/vagrant", type: "virtualbox"
-  master.vm.provision "shell", privileged: true, path: "scripts/install-master.sh"
+    v.memory = MEMORY_SIZE
+    v.cpus = CPU_COUNT
   end
 
-  config.vm.define "agent" do |worker|
-  worker.vm.hostname = "agent"
-  worker.vm.network :private_network, ip: "192.168.59.141" 
-  worker.vm.synced_folder ".", "/vagrant", type: "virtualbox"
-  worker.vm.provision "shell", privileged: true, path: "scripts/install-worker.sh"
+  config.vm.define MASTER_HOSTNAME do |master|
+    master.vm.hostname = MASTER_HOSTNAME
+    master.vm.network :private_network, ip: MASTER_IP
+    master.vm.synced_folder ".", "/vagrant"
+    master.vm.provision "shell", privileged: true, path: "scripts/master.sh"
+  end
+
+  config.vm.define WORKER_HOSTNAME do |worker|
+    worker.vm.hostname = WORKER_HOSTNAME
+    worker.vm.network :private_network, ip: WORKER_IP
+    worker.vm.synced_folder ".", "/vagrant"
+    worker.vm.provision "shell", privileged: true, path: "scripts/worker.sh"
   end
 end
