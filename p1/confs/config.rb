@@ -1,5 +1,5 @@
 
-BOX_NAME = "bento/ubuntu-22.04"
+BOX_NAME = "bento/centos-8"
 
 MEMORY_SIZE = 1024
 CPU_COUNT = 1
