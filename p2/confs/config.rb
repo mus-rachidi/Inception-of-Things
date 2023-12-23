@@ -1,5 +1,5 @@
 
-BOX_NAME = "bento/centos-8"
+BOX_NAME = "hashicorp/bionic64"
 
 MEMORY_SIZE = 1024
 CPU_COUNT = 1
