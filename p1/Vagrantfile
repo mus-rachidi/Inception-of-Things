@@ -11,14 +11,21 @@ Vagrant.configure("2") do |config|
   config.vm.define MASTER_HOSTNAME do |master|
     master.vm.hostname = MASTER_HOSTNAME
     master.vm.network :private_network, ip: MASTER_IP
-    master.vm.synced_folder ".", "/vagrant", type: "virtualbox"
-    master.vm.provision "shell", privileged: true, path: "scripts/master.sh"
+    master.vm.synced_folder ".", "/vagrant"
+    master.vm.provision "shell", privileged: true, path: "scripts/master.sh",
+    env: {
+      "MASTER_IP" => MASTER_IP
+    }
   end
 
   config.vm.define WORKER_HOSTNAME do |worker|
     worker.vm.hostname = WORKER_HOSTNAME
     worker.vm.network :private_network, ip: WORKER_IP
-    worker.vm.synced_folder ".", "/vagrant" , type: "virtualbox"
-    worker.vm.provision "shell", privileged: true, path: "scripts/worker.sh"
+    worker.vm.synced_folder ".", "/vagrant" 
+    worker.vm.provision "shell", privileged: true, path: "scripts/worker.sh",
+    env: {
+      "MASTER_IP" => MASTER_IP ,
+      "WORKER_IP" => WORKER_IP
+    }
   end
 end

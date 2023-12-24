@@ -40,7 +40,7 @@ clean:
 	@echo "Cleaning up the project..."
 	@cd p1 && vagrant destroy -f
 	@cd p1 && rm -rf .vagrant
-	@cd p1 && rm -rf confs/token
+	@cd p1 && rm -rf confs/node-token
 	@cd p2 && vagrant destroy -f
 	@cd p2 && rm -rf .vagrant 
 	@cd p1 && rm -rf confs/node-token
